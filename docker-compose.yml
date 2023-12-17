@@ -1,0 +1,39 @@
+version: '3'
+services:
+  postgres-15:
+    image: postgres:15
+    container_name: pg-15
+    volumes:
+      - "postgres-db-data-15:/var/lib/postgresql/data"
+    ports:
+      - "${POSTGRES_PORT_15}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB_15}
+      POSTGRES_USER: ${POSTGRES_USER_15}
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD_15}"
+      TZ: America/Bogota
+    restart: always
+    networks:
+      dev-network:
+  postgres-13:
+    image: postgres:13-alpine
+    container_name: pg-13
+    volumes:
+      - "postgres-db-data-13:/var/lib/postgresql/data"
+    ports:
+      - "${POSTGRES_PORT_13}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB_13}
+      POSTGRES_USER: ${POSTGRES_USER_13}
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD_13}"
+      TZ: America/Bogota
+    restart: always
+    networks:
+      dev-network:
+networks:
+  dev-network:
+    external: true
+
+volumes:
+  postgres-db-data-15: # Se deja de esta manera para que docker gestione la ubicacion
+  postgres-db-data-13: # Se deja de esta manera para que docker gestione la ubicacion
